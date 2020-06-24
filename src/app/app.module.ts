@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { Punto1Component } from './components/punto1/punto1.component';
-import { Punto2Component } from './components/punto2/punto2.component';
-import { Punto3Component } from './components/punto3/punto3.component';
 import { AboutComponent } from './components/about/about.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductoComponent } from './components/producto/producto.component';
+
+import { NgxPaginationModule } from 'ngx-pagination';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -18,15 +20,16 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    Punto1Component,
-    Punto2Component,
-    Punto3Component,
-    AboutComponent
+    AboutComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    NgxPaginationModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

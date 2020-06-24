@@ -1,0 +1,94 @@
+<div class="bg">
+<form #formIngreso="ngForm">
+    <div class="form-group row">
+
+        <input type="text" class="form-control border-info col-5 " id="inputid" placeholder="Ingrese producto a buscar"
+            name="inputid" required [(ngModel)]="id" #inputid="ngModel" />
+        
+<br>
+        <button type="button" class="btn btn-outline-primary col-2" [disabled]="!formIngreso.form.valid"
+            (click)="cargarProductos()">Buscar</button>
+
+            <div *ngIf="inputid.invalid && (inputid.dirty || inputid.touched)" class="alert alert-danger">
+                <div *ngIf="inputid.errors.required">
+                    Primero debe ingresar que buscar ;)
+                </div>
+            </div>
+    </div>
+</form>
+<form>
+    <div class="form-group row">
+        <label for="id" class="col-2">Cantidad de resultados:</label>
+        <select name="id" id="id" class="form-control col-3" [(ngModel)]="cantItems">
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+</form>
+<div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 border border-success">
+            <div *ngFor="let item of 
+            vector_producto | paginate:{itemsPerPage: cantItems, currentPage: pageActual} ">
+                <div class="card-group">
+                    <div class="card h-50">
+                        <img src="{{item.thumbnail}}" class="img-responsive" alt="..." width="45%" height="45%">
+
+                    </div>
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4><a (click)="entrarItem(item.id)" data-toggle="modal" data-target="#openModal"
+                                    href="http://localhost:4200/producto"> {{item.title}} </a></h4>
+                            <h1> $ {{item.price}} <h5> Condicion: {{item.condition}} </h5>
+                            </h1>
+
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Cantidad disponible: <p class="badge badge-info">
+                                    {{item.available_quantity}}</p> Vendidos: <p class="badge badge-info">
+                                    {{item.sold_quantity}}</p>
+                                {{item.listing_type_id}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-outline-primary col-2" [disabled]="!formIngreso.form.valid"
+    (click)="cargarProductosAsc()">Buscar productos según precio ascendente</button>
+
+<button type="button" class="btn btn-outline-primary col-2" [disabled]="!formIngreso.form.valid"
+    (click)="cargarProductosDesc()">Buscar productos según precio descendente</button>
+    <pagination-controls (pageChange)="pageActual= $event"></pagination-controls>
+
+
+    <div class="modal fade" id="openModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">{{producto.title}}  </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   
+                   <h5>Estado: {{producto.status}}</h5> 
+                   <h5>{{producto.site_id}}</h5>
+                   <h5>Cantidad Inicial: {{producto.initial_quantity}}</h5>
+                   <h5>Precio Base: ${{producto.base_price}}</h5>
+                   <h5>{{producto.warranty}}</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
